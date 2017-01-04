@@ -51,7 +51,9 @@ def mainPage() {
                 href url:redirectUrl, style:"embedded", required:true, title:"", description:"Click to enter credentials"
             }
         } else {
-
+             section("Options") {
+            	input "systemId", "number", title:"System ID:", required: true
+            }
         }
     }
 }
@@ -233,9 +235,9 @@ def getSystemId() {
 }
 */
 
-def getSystemId() { return "XXXXX" }
-def getParamPath() { return "/api/v1/systems/" + getSystemId() + "/parameters" }
 
+def getParamPath() { return "/api/v1/systems/" + systemId + "/parameters" }
+//log.debug " systemid: ${systemId}"
 
 def getIndoorTemp() {
 	refreshAuthToken()
@@ -248,7 +250,7 @@ def getIndoorTemp() {
         contentType: 'application/json',
         headers: ["Authorization": "Bearer ${atomicState.authToken}"]
     ]
-    //log.debug " Chilla: ${params}"
+    //log.debug " Parameters: ${ParamPath}"
     try {
         httpGet(params) {resp ->
             log.debug "resp data: ${resp.data}"
