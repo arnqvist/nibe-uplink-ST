@@ -11,3 +11,5 @@ Instructions:
 5. Go create a new Device handler from the code nibe-f750-tile.groovy found at the same repository as before. Since I'm new to this i don't know if you have to enable Oauth in the device handler or not. Publish.
 
 6. Install the SmartApp and you will be asked to login to your Nibe UpLink account. Do that and when you see a white page (lol), click done and enter your noted System ID.
+
+Note: Alot of this code is written by c99koder. So big thanks to him. I altered the API-endpoints and some other stuff to get it to work with Nibe.
