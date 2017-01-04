@@ -264,7 +264,7 @@ def getIndoorTemp() {
 }
 
 def getOutdoorTemp() {
-	refreshAuthToken()
+	//refreshAuthToken()
 
     def ParamPath = getParamPath()
     def params = [
@@ -288,7 +288,7 @@ def getOutdoorTemp() {
 }
 
 def getWaterTemp() {
-	refreshAuthToken()
+	//refreshAuthToken()
 
     def ParamPath = getParamPath()
     def params = [
@@ -312,7 +312,7 @@ def getWaterTemp() {
 }
 
 def getFanSpeed() {
-	refreshAuthToken()
+	//refreshAuthToken()
 
     def ParamPath = getParamPath()
     def params = [
@@ -336,7 +336,7 @@ def getFanSpeed() {
 }
 
 def getAddition() {
-	refreshAuthToken()
+	//refreshAuthToken()
 
     def ParamPath = getParamPath()
     def params = [
