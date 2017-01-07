@@ -1,0 +1,87 @@
+/**
+ *  Nibe F750
+ *
+ *  Copyright 2016 Petter Arnqvist Eriksson
+ *
+ *  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ *  in compliance with the License. You may obtain a copy of the License at:
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ *  Unless required by applicable law or agreed to in writing, software distributed under the License is distributed
+ *  on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the License
+ *  for the specific language governing permissions and limitations under the License.
+ *
+ */
+metadata {
+	definition (name: "Nibe F750", namespace: "arnqvist", author: "Petter Arnqvist Erikssson") {
+		capability "Polling"
+		capability "Refresh"
+        capability "Temperature Measurement"
+        capability "Power Meter"
+        command "setParameters"
+        attribute "fan_speed", "number"
+       	attribute "water_temp", "number"
+        attribute "outdoor_temp", "number"
+	}
+
+tiles(scale: 2) {
+		multiAttributeTile(name:"temperature", type:"generic", width:6, height:4, canChangeIcon: false) {
+  			tileAttribute("device.temperature", key: "PRIMARY_CONTROL") {
+    			attributeState("temperature", label:'${currentValue}°',
+                               backgroundColors:[
+                                   [value: 19, color: "#7fd1e8"],
+                                   [value: 20, color: "#7fe8c6"],
+                                   [value: 20.5, color: "#7fe87f"],
+                                   [value: 21, color: "#e8d67f"],
+                                   [value: 22, color: "#e8927f"]
+                               ])
+  			}
+  			tileAttribute("device.water_temp", key: "SECONDARY_CONTROL") {
+    			attributeState("temperature", icon:"http://cdn.device-icons.smartthings.com/Bath/bath6-icn@2x.png", label:'${currentValue}°', unit:"C")
+  			}
+        }
+
+        valueTile("outdoor_temp", "device.outdoor_temp", width: 1, height: 1, decoration: "flat") {
+			state("temperature", label: 'Outdoor ${currentValue}°', unit:"C")
+	    }
+
+        valueTile("fan_speed", "device.fan_speed", width: 1, height: 1, decoration: "flat") {
+			state("default", label: 'Fan ${currentValue}%', unit:"%")
+	    }
+
+        valueTile("power", "device.power", width: 1, height: 1, decoration: "flat") {
+			state("default", label: 'Addition ${currentValue}kW', unit:"kW")
+	    }
+
+		standardTile("refresh", "device.weather", inactiveLabel: false, width: 1, height: 1, decoration: "flat", wordWrap: true) {
+			state "default", label: "", action: "refresh", icon:"st.secondary.refresh"
+		}
+
+		main(["temperature"])
+		details(["temperature", "water_temp", "outdoor_temp", "fan_speed", "power", "refresh"])}
+}
+def parse(String description) {}
+
+def poll() {
+	def steps = parent.getIndoorTemp()
+
+    	if(steps) {
+    		log.debug "Indoor temperature: ${steps}"
+    		sendEvent("name":"temperature", "value":steps)
+
+    	} else {
+    		log.debug "No data available"
+    	}
+
+}
+
+//*
+def setParameters(json1) {
+    log.debug "Indoor Temp: ${json1}"
+}
+*/
+
+def refresh() {
+    poll()
+}
