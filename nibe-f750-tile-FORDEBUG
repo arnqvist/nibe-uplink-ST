@@ -74,45 +74,6 @@ def poll() {
     		log.debug "No data available"
     	}
 
-    def outdoor_temp = parent.getOutdoorTemp()
-
-		if(outdoor_temp) {
-    		log.debug "Outdoor temperature: ${outdoor_temp}"
-    		sendEvent("name":"outdoor_temp", "value":outdoor_temp)
-
-    	} else {
-    		log.debug "No data available"
-    	}
-
-    def water_temp = parent.getWaterTemp()
-
-    	if(water_temp) {
-    		log.debug "Water temperature: ${water_temp}"
-    		sendEvent("name":"water_temp", "value":water_temp)
-
-    	} else {
-    		log.debug "No data available"
-    	}
-
-	def fan_speed = parent.getFanSpeed()
-
-    	if(fan_speed) {
-    		log.debug "Fan Speed: ${fan_speed}"
-    		sendEvent("name":"fan_speed", "value":fan_speed)
-
-    	} else {
-    		log.debug "No data available"
-    	}
-
-	def power = parent.getAddition()
-
-		if(power) {
-    		log.debug "Addition: ${power}"
-    		sendEvent("name":"power", "value":power)
-
-    	} else {
-    		log.debug "No data available"
-    	}
 }
 
 //*
