@@ -51,7 +51,9 @@ def mainPage() {
                 href url:redirectUrl, style:"embedded", required:true, title:"", description:"Click to enter credentials"
             }
         } else {
-
+             section("Options") {
+            	input "systemId", "number", title:"System ID:", required: true
+            }
         }
     }
 }
@@ -233,9 +235,9 @@ def getSystemId() {
 }
 */
 
-def getSystemId() { return "XXXXX" }
-def getParamPath() { return "/api/v1/systems/" + getSystemId() + "/parameters" }
 
+def getParamPath() { return "/api/v1/systems/" + systemId + "/parameters" }
+//log.debug " systemid: ${systemId}"
 
 def getIndoorTemp() {
 	refreshAuthToken()
@@ -248,7 +250,7 @@ def getIndoorTemp() {
         contentType: 'application/json',
         headers: ["Authorization": "Bearer ${atomicState.authToken}"]
     ]
-    //log.debug " Chilla: ${params}"
+    //log.debug " Parameters: ${ParamPath}"
     try {
         httpGet(params) {resp ->
             log.debug "resp data: ${resp.data}"
@@ -262,7 +264,7 @@ def getIndoorTemp() {
 }
 
 def getOutdoorTemp() {
-	refreshAuthToken()
+	//refreshAuthToken()
 
     def ParamPath = getParamPath()
     def params = [
@@ -286,7 +288,7 @@ def getOutdoorTemp() {
 }
 
 def getWaterTemp() {
-	refreshAuthToken()
+	//refreshAuthToken()
 
     def ParamPath = getParamPath()
     def params = [
@@ -310,7 +312,7 @@ def getWaterTemp() {
 }
 
 def getFanSpeed() {
-	refreshAuthToken()
+	//refreshAuthToken()
 
     def ParamPath = getParamPath()
     def params = [
@@ -334,7 +336,7 @@ def getFanSpeed() {
 }
 
 def getAddition() {
-	refreshAuthToken()
+	//refreshAuthToken()
 
     def ParamPath = getParamPath()
     def params = [
@@ -349,8 +351,9 @@ def getAddition() {
         httpGet(params) {resp ->
             log.debug "resp data: ${resp.data}"
             //log.debug "systemId: ${resp.data.rawValue}"
-
-            return resp.data.rawValue[0].toInteger() /100
+			
+            def additionStr = resp.data.rawValue[0].toInteger() / 100
+            return additionStr.toString()
         }
     } catch (e) {
         log.error "error: $e"
