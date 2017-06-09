@@ -200,44 +200,7 @@ def setupChildDevice() {
     }
 }
 
-/**
-def isSystemIdSet() {
-    if (systemId == null) {
-    	return getSystemId()
-    }
-    return false
-}
-*/
-
-/**
-def getSystemId() {
-	//refreshAuthToken()
-
-    def params = [
-        uri:  'https://api.nibeuplink.com',
-        path: '/api/v1/systems',
-        //query: [parameterIds: 'systemid'],
-        contentType: 'application/json',
-        headers: ["Authorization": "Bearer ${atomicState.authToken}"]
-    ]
-    //log.debug " Chilla: ${params}"
-    try {
-        httpGet(params) {resp ->
-            //log.debug "resp data: ${resp.data}"
-            //log.debug "SystemID: ${resp.data.objects.systemId}"
-
-            def systemId = resp.data.objects.systemId
-            log.debug "SystemID: ${systemId}"
-        }
-    } catch (e) {
-        log.error "error: $e"
-    }
-}
-*/
-
-
 def getParamPath() { return "/api/v1/systems/" + systemId + "/parameters" }
-//log.debug " systemid: ${systemId}"
 
 def getIndoorTemp() {
 	refreshAuthToken()
@@ -253,107 +216,11 @@ def getIndoorTemp() {
     //log.debug " Parameters: ${ParamPath}"
     try {
         httpGet(params) {resp ->
-            log.debug "resp data: ${resp.data}"
-            //log.debug "systemId: ${resp.data.rawValue}"
+
+            def indoorTemp = resp.data.rawValue[0].toInteger() / 10
+            deviceID.setParameters(indoorTemp)
 
             return resp.data.rawValue[0].toInteger() / 10
-        }
-    } catch (e) {
-        log.error "error: $e"
-    }
-}
-
-def getOutdoorTemp() {
-	//refreshAuthToken()
-
-    def ParamPath = getParamPath()
-    def params = [
-        uri:  'https://api.nibeuplink.com',
-        path: ParamPath,
-        query: [parameterIds: 'outdoor_temperature'],
-        contentType: 'application/json',
-        headers: ["Authorization": "Bearer ${atomicState.authToken}"]
-    ]
-    //log.debug " Chilla: ${params}"
-    try {
-        httpGet(params) {resp ->
-            log.debug "resp data: ${resp.data}"
-           // log.debug "systemId: ${resp.data.rawValue}"
-
-            return resp.data.rawValue[0].toInteger() / 10
-        }
-    } catch (e) {
-        log.error "error: $e"
-    }
-}
-
-def getWaterTemp() {
-	//refreshAuthToken()
-
-    def ParamPath = getParamPath()
-    def params = [
-        uri:  'https://api.nibeuplink.com',
-        path: ParamPath,
-        query: [parameterIds: 'hot_water_temperature'],
-        contentType: 'application/json',
-        headers: ["Authorization": "Bearer ${atomicState.authToken}"]
-    ]
-    //log.debug " Chilla: ${params}"
-    try {
-        httpGet(params) {resp ->
-            log.debug "resp data: ${resp.data}"
-           // log.debug "systemId: ${resp.data.rawValue}"
-
-            return resp.data.rawValue[0].toInteger() / 10
-        }
-    } catch (e) {
-        log.error "error: $e"
-    }
-}
-
-def getFanSpeed() {
-	//refreshAuthToken()
-
-    def ParamPath = getParamPath()
-    def params = [
-        uri:  'https://api.nibeuplink.com',
-        path: ParamPath,
-        query: [parameterIds: 'fan_speed'],
-        contentType: 'application/json',
-        headers: ["Authorization": "Bearer ${atomicState.authToken}"]
-    ]
-    //log.debug " Chilla: ${params}"
-    try {
-        httpGet(params) {resp ->
-            log.debug "resp data: ${resp.data}"
-            //log.debug "systemId: ${resp.data.rawValue}"
-
-            return resp.data.rawValue[0].toInteger()
-        }
-    } catch (e) {
-        log.error "error: $e"
-    }
-}
-
-def getAddition() {
-	//refreshAuthToken()
-
-    def ParamPath = getParamPath()
-    def params = [
-        uri:  'https://api.nibeuplink.com',
-        path: ParamPath,
-        query: [parameterIds: '43084'],
-        contentType: 'application/json',
-        headers: ["Authorization": "Bearer ${atomicState.authToken}"]
-    ]
-    //log.debug " Chilla: ${params}"
-    try {
-        httpGet(params) {resp ->
-            log.debug "resp data: ${resp.data}"
-            //log.debug "systemId: ${resp.data.rawValue}"
-			
-            def additionStr = resp.data.rawValue[0].toInteger() / 100
-            return additionStr.toString()
         }
     } catch (e) {
         log.error "error: $e"
