@@ -256,7 +256,8 @@ def getIndoorTemp() {
             log.debug "resp data: ${resp.data}"
             //log.debug "systemId: ${resp.data.rawValue}"
 
-            return resp.data.rawValue[0].toInteger() / 10
+           return resp.data.rawValue[0].toDouble() / 10
+           //return Math.round(temp)
         }
     } catch (e) {
         log.error "error: $e"
@@ -351,7 +352,7 @@ def getAddition() {
         httpGet(params) {resp ->
             log.debug "resp data: ${resp.data}"
             //log.debug "systemId: ${resp.data.rawValue}"
-			
+
             def additionStr = resp.data.rawValue[0].toInteger() / 100
             return additionStr.toString()
         }
@@ -367,3 +368,4 @@ def installed() {
 def updated() {
 	setupChildDevice()
 }
+

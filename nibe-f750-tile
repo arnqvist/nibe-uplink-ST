@@ -25,33 +25,35 @@ metadata {
         attribute "outdoor_temp", "number"
 	}
 
-tiles(scale: 2) {
-		multiAttributeTile(name:"temperature", type:"generic", width:6, height:4, canChangeIcon: false) {
-  			tileAttribute("device.temperature", key: "PRIMARY_CONTROL") {
-    			attributeState("temperature", label:'${currentValue}°',
-                               backgroundColors:[
-                                   [value: 19, color: "#7fd1e8"],
-                                   [value: 20, color: "#7fe8c6"],
-                                   [value: 20.5, color: "#7fe87f"],
-                                   [value: 21, color: "#e8d67f"],
-                                   [value: 22, color: "#e8927f"]
+tiles(scale:2){
+	multiAttributeTile(name:"temperature", type:"generic", width:6, height:4) {
+    	tileAttribute("device.temperature", key: "PRIMARY_CONTROL") {
+			attributeState("default", label:'${currentValue}°',
+				backgroundColors:[
+                	[value: 18, color: "#4E96F4"],
+					[value: 19, color: "#5EB1CD"],
+					[value: 20, color: "#6ECCA6"],
+					[value: 21, color: "#7FE87F"],
+					[value: 22, color: "#A2C67F"],
+                    [value: 23, color: "#C5A47F"],
+                    [value: 24, color: "#E8837F"]
                                ])
   			}
   			tileAttribute("device.water_temp", key: "SECONDARY_CONTROL") {
-    			attributeState("temperature", icon:"http://cdn.device-icons.smartthings.com/Bath/bath6-icn@2x.png", label:'${currentValue}°', unit:"C")
+    			attributeState("default", icon:"http://privat.bahnhof.se/wb214683/smartthings/icons/bath6-icn@3x.png", label:'${currentValue}°', unit:"C")
   			}
         }
 
-        valueTile("outdoor_temp", "device.outdoor_temp", width: 1, height: 1, decoration: "flat") {
-			state("temperature", label: 'Outdoor ${currentValue}°', unit:"C")
+        standardTile("outdoor_temp", "device.outdoor_temp", width: 1, height: 1, decoration: "flat") {
+			state("default", label: '${currentValue}°', unit:"C", icon: "st.Weather.weather11")
 	    }
 
-        valueTile("fan_speed", "device.fan_speed", width: 1, height: 1, decoration: "flat") {
-			state("default", label: 'Fan ${currentValue}%', unit:"%")
+        standardTile("fan_speed", "device.fan_speed", width: 1, height: 1, decoration: "flat") {
+			state("default", label: '${currentValue}%', unit:"%", icon: "st.Appliances.appliances11")
 	    }
 
-        valueTile("power", "device.power", width: 1, height: 1, decoration: "flat") {
-			state("default", label: 'Addition ${currentValue}kW', unit:"kW")
+        standardTile("power", "device.power", width: 1, height: 1, decoration: "flat") {
+			state("default", label: '${currentValue}kW', unit:"kW", icon: "http://privat.bahnhof.se/wb214683/smartthings/icons/electrical_addition-icn@256.png")
 	    }
 
 		standardTile("refresh", "device.weather", inactiveLabel: false, width: 1, height: 1, decoration: "flat", wordWrap: true) {
@@ -115,11 +117,10 @@ def poll() {
     	}
 }
 
-//*
-def setParameters(json1) {
-    log.debug "Indoor Temp: ${json1}"
-}
-*/
+/*def setParameters(indoorTemp) {
+    		log.debug "KOLLA HAR DA: ${indoorTemp}"
+    	}*/
+
 
 def refresh() {
     poll()
