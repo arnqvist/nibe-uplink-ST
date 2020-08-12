@@ -44,7 +44,7 @@ def mainPage() {
 
     return dynamicPage(name: "authentication", uninstall: true) {
         if (!atomicState.authToken) {
-            def redirectUrl = "https://graph.api.smartthings.com/oauth/initialize?appId=${app.id}&access_token=${atomicState.accessToken}&apiServerUrl=${getApiServerUrl()}"
+            def redirectUrl = "https://graph-eu01-euwest1.api.smartthings.com/oauth/initialize?appId=${app.id}&access_token=${atomicState.accessToken}&apiServerUrl=${getApiServerUrl()}"
 
             section("Nibe authentication") {
                 paragraph "Tap below to log in to Nibe Uplink and authorize SmartThings access."
@@ -67,7 +67,7 @@ def oauthInitUrl() {
       client_id: getAppClientId(),
       state: atomicState.oauthInitState,
       access_type: "offline",
-      redirect_uri: "https://graph.api.smartthings.com/oauth/callback"
+      redirect_uri: "https://graph-eu01-euwest1.api.smartthings.com/oauth/callback"
    ]
 
    redirect(location: "https://api.nibeuplink.com/oauth/authorize?" + toQueryString(oauthParams))
@@ -85,7 +85,7 @@ def callback() {
 			client_secret: getAppClientSecret(),
 			client_id: getAppClientId(),
 			grant_type: "authorization_code",
-			redirect_uri: "https://graph.api.smartthings.com/oauth/callback",
+			redirect_uri: "https://graph-eu01-euwest1.api.smartthings.com/oauth/callback",
             scope: "READSYSTEM"
 		]
 	]
