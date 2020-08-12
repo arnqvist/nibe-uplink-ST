@@ -2,7 +2,7 @@ Instructions:
 
 Register free account at Nibeuplink.com and connect your pump with an ethernet cable, if your pump is fitted with one. Mine is, but its relative new and i dont know when they started mounting it. Then when you are at the overview page for your pump. Look in the adressbar and note down your System ID, it's right between "system" and "status".
 
-Login to api.nibeuplink.com, go to "my applications" and create new. Call it what you want and set the callback url to "https://graph.api.smartthings.com/oauth/callback". Then note down your "identifier" and "secret". And keep them secret.
+Login to api.nibeuplink.com, go to "my applications" and create new. Call it what you want and set the callback url to "https://graph-eu01-euwest1.api.smartthings.com/oauth/callback". Then note down your "identifier" and "secret". And keep them secret.
 
 Go to the SmartThings IDE and create SmartApp from the code nice-uplink-ST.groovy found at "https://github.com/arnqvist/nibe-uplink-ST/".
 
