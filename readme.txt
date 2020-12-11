@@ -1,3 +1,5 @@
+Note! This repository is no longer looked after. I dont know if this does work anymore.
+
 Instructions:
 
 Register free account at Nibeuplink.com and connect your pump with an ethernet cable, if your pump is fitted with one. Mine is, but its relative new and i dont know when they started mounting it. Then when you are at the overview page for your pump. Look in the adressbar and note down your System ID, it's right between "system" and "status".
